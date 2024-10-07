@@ -1,7 +1,7 @@
 package yurkov.cloudFileStorage.adapter.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import yurkov.cloudFileStorage.domain.user.UserEntity;
+import yurkov.cloudFileStorage.domain.storage.user.UserEntity;
 
 import java.util.Optional;
 
