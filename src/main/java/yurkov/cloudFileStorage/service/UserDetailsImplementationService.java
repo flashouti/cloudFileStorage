@@ -10,17 +10,17 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import yurkov.cloudFileStorage.adapter.repository.UserRepository;
 import yurkov.cloudFileStorage.adapter.web.errors.UserNotFoundException;
-import yurkov.cloudFileStorage.domain.user.UserEntity;
+import yurkov.cloudFileStorage.domain.storage.user.UserEntity;
 import java.util.Optional;
 
 @Service
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 @Transactional
-public class PersonDetailsService implements UserDetailsService {
+public class UserDetailsImplementationService implements UserDetailsService {
 
     private final UserRepository userRepository;
     @Autowired
-    public PersonDetailsService(UserRepository userRepository) {
+    public UserDetailsImplementationService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
