@@ -17,7 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
+import yurkov.cloudFileStorage.domain.storage.user.UserRole;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,42 +26,34 @@ import java.util.List;
 @RequiredArgsConstructor
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class SecurityConfig {
-    // временное решение, позже переделать
+
     public static String[] PERMITTED_URI = {
-            "/**"
+            "/cloudFileStorage/auth/**"
     };
+
     public static String[] ADMIN_URI = {
             "/**"
     };
-    public static String[] STUDENT_URI = {
-            "/**"
+
+    public static String[] USER_URI = {
     };
-    public static String[] COACH_URI = {
-            "/**"
-    };
-
-
-
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .formLogin(AbstractHttpConfigurer::disable)
-                .logout(AbstractHttpConfigurer::disable)
-                .requestCache(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(c -> c
-                        .requestMatchers(PERMITTED_URI)
-                        .permitAll()
-                        .requestMatchers(COACH_URI)
-                        .hasAuthority(UserRole.COACH.name())
-                        .requestMatchers(ADMIN_URI)
-                        .hasAuthority(UserRole.ADMIN.name())
-                        .requestMatchers(STUDENT_URI)
-                        .hasAuthority(UserRole.STUDENT.name())
-                ).httpBasic(
-                        Customizer.withDefaults()
-                ).build();
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/signup", "/login").permitAll()
+                        .anyRequest().authenticated())
+                .formLogin(login -> login
+                        .loginPage("/login")
+                        .loginProcessingUrl("/login/process")
+                        .defaultSuccessUrl("/", true)
+                        .failureUrl("/login?error"))
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login"))
+                .build();
     }
 
     @Bean
