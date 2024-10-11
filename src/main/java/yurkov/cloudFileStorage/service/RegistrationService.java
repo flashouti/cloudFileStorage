@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import yurkov.cloudFileStorage.adapter.repository.UserRepository;
+import yurkov.cloudFileStorage.adapter.web.dto.request.UserRegistrationRequest;
 import yurkov.cloudFileStorage.adapter.web.errors.AlreadyExistException;
 import yurkov.cloudFileStorage.domain.storage.user.UserEntity;
 import yurkov.cloudFileStorage.domain.storage.user.UserRole;
@@ -21,15 +22,15 @@ public class RegistrationService {
     UserRepository userRepository;
 
 
-    public void registerUser(UserEntity userEntity) {
-        String encodePass = passwordEncoder.encode(userEntity.getPassword());
-        Optional<UserEntity> checkUsername = userRepository.findByUsername(userEntity.getUsername());
+    public void registerUser(UserRegistrationRequest registrationRequest) {
+        String encodePass = passwordEncoder.encode(registrationRequest.password());
+        Optional<UserEntity> checkUsername = userRepository.findByUsername(registrationRequest.username());
         if (checkUsername.isPresent()) {
             throw new AlreadyExistException("User");
         }
 
         UserEntity userEntityNew = new UserEntity(
-                userEntity.getUsername(),
+                registrationRequest.username(),
                 encodePass);
 
         userEntityNew.setRole(UserRole.ROLE_USER);

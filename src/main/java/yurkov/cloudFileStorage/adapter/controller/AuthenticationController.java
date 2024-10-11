@@ -5,12 +5,12 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.log4j.Log4j2;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import yurkov.cloudFileStorage.adapter.web.dto.request.UserRegistrationRequest;
 import yurkov.cloudFileStorage.domain.storage.user.UserEntity;
 import yurkov.cloudFileStorage.service.RegistrationService;
 import yurkov.cloudFileStorage.util.UserValidator;
@@ -38,15 +38,13 @@ public class AuthenticationController {
     }
 
     @PostMapping("signup")
-    public String registration(@ModelAttribute("user") @Valid UserEntity user, BindingResult bindingResult) {
+    public String registration(@ModelAttribute("user") @Validated UserRegistrationRequest user, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
-        log.info("Sign up successful for user \"{}\" (id={})", user.getUsername(), user.getId());
 
         if (bindingResult.hasErrors()) {
 
             return "/auth/signup";
         }
-        log.info("Sign up successful for user \"{}\" (id={})", user.getUsername(), user.getId());
         registrationService.registerUser(user);
 
         return "redirect:/auth/login";
