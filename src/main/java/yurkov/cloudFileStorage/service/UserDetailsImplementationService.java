@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import yurkov.cloudFileStorage.adapter.repository.UserRepository;
 import yurkov.cloudFileStorage.adapter.web.errors.UserNotFoundException;
-import yurkov.cloudFileStorage.domain.storage.user.UserEntity;
+import yurkov.cloudFileStorage.domain.user.UserEntity;
 import java.util.Optional;
 
 @Service

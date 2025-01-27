@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import yurkov.cloudFileStorage.adapter.repository.UserRepository;
 import yurkov.cloudFileStorage.adapter.web.dto.request.UserRegistrationRequest;
 import yurkov.cloudFileStorage.adapter.web.errors.AlreadyExistException;
-import yurkov.cloudFileStorage.domain.storage.user.UserEntity;
-import yurkov.cloudFileStorage.domain.storage.user.UserRole;
+import yurkov.cloudFileStorage.domain.user.UserEntity;
+import yurkov.cloudFileStorage.domain.user.UserRole;
 import java.util.Optional;
 
 @Service

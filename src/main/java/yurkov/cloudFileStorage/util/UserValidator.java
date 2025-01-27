@@ -1,14 +1,13 @@
 package yurkov.cloudFileStorage.util;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 import yurkov.cloudFileStorage.adapter.repository.UserRepository;
 import yurkov.cloudFileStorage.adapter.web.dto.request.UserRegistrationRequest;
-import yurkov.cloudFileStorage.domain.storage.user.UserEntity;
+import yurkov.cloudFileStorage.domain.user.UserEntity;
 
 @Component
 @RequiredArgsConstructor

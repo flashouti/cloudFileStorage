@@ -1,4 +1,4 @@
-package yurkov.cloudFileStorage.domain.storage.user;
+package yurkov.cloudFileStorage.domain.user;
 
 import org.springframework.security.core.GrantedAuthority;
 
